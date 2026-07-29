@@ -51,7 +51,7 @@ domain-specific PSA dataset.
 
 ## 3. Timeline & Milestones
 
-### Week 1 — Data Collection & Curation *(Sub-objective 1)* — ✅ status: see [§6](#6-current-status)
+### Week 1 — Data Collection & Curation *(Sub-objective 1)* 
 - Identify and document ≥10 reliable sources (gov sites, X/Twitter, media archives, NGOs).
 - Hybrid scraping pipeline (manual + automated; BeautifulSoup/Selenium; robots.txt & rate limits respected).
 - Collect raw PSAs across Education, Health, Security, Agriculture, Governance.
