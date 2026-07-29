@@ -113,7 +113,7 @@ psa_pipeline/
 │   ├── merged_psa_dataset.csv         # combined team scrape (raw curation deliverable)
 │   └── mined/                         # authorities.json, phrases.json, reference_lines.json
 └── output/
-    ├── kenyan_psa_synthetic_70000.csv # final synthetic dataset
+    ├── kenyan_psa_synthetic_15000.csv # final synthetic dataset
     └── quality_report.txt
 ```
 
