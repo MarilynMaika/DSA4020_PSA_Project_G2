@@ -155,8 +155,7 @@ Parallel member scraping → merge → mine real authorities/phrasing → fill a
 generate → dedup (exact + fuzzy) → rule-based quality check → final synthetic dataset. The
 pipeline automatically tops up generation if dedup/QC drop the row count below 70,000.
 
-Full details, summary statistics, sample entries, and challenges for both datasets are in the
-[Week 1 Report](Week1_Report.docx).
+
 
 
 ### EDA Findings
