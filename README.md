@@ -31,7 +31,7 @@ domain-specific PSA dataset.
 - *"Ministry of Health: Avoid unnecessary travel to Ebola hotspots."*
 
 ### Team & Tools
-- **Team size:** 4–5 students
+- **Team size:** 5 students
 - **Duration:** 4 weeks
 - **Stack:** Python (Hugging Face, pandas, BeautifulSoup, Selenium), MT evaluation libraries
   (BLEU/chrF/COMET/SacreBLEU), Streamlit/Gradio for deployment.
