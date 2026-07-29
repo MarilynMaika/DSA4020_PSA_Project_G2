@@ -118,7 +118,15 @@ psa_pipeline/
 
 ---
 
-## 6. Current Status: Week 1 Complete
+## 6. Current Status: 
+
+- Data Collection
+
+- Data Cleaning
+
+- EDA
+
+- Initial Finetuning Done!
 
 Individual scraping efforts fell short of the 5,000-sentence target on their own, so the team
 combined every member's output into one **merged scraped dataset**, then built a pipeline to
