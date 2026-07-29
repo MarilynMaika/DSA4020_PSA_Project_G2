@@ -149,13 +149,23 @@ clean **synthetic dataset** grounded in that real-world material.
 - ~21306 rows final merged dataset(Bootstrapped synthetic + Real Scrapped(By group members + Provided by the lecturer)) Hybrid :`PSA_ID, Domain, English,Kswahili,Ekeguisi`
 - Used LLM-based translation to Ekeguisi with fewshot
 - Done Manual validation from Ekeguisi Speakers
-### Pipeline Architecture
 
-![Pipeline architecture](assets/architecture.png)
 
-Parallel member scraping → merge → mine real authorities/phrasing → fill authored templates →
-generate → dedup (exact + fuzzy) → rule-based quality check → final synthetic dataset. The
-pipeline automatically tops up generation if dedup/QC drop the row count below 70,000.
+## Sample of the PSAs Collected
+
+The dataset contains Public Service Announcements (PSAs) collected from various domains, including Agriculture, Health, Education, Governance, and Security. Each record consists of a unique PSA identifier, the corresponding domain, and the PSA message in English. Table 1 presents a sample of the collected PSAs from the Agriculture domain.
+
+**Table 1. Sample of the Collected Public Service Announcements (PSAs)**
+
+| PSA ID | Domain | English PSA |
+|--------:|----------|-------------|
+| 1 | Agriculture | Farmers are urged to prioritize safe agrochemical usage as Kenya hosts the World Farmers' Organisation General Assembly. |
+| 2 | Agriculture | Trucks ferrying top-dressing fertilizer are now arriving at the Eldoret Depot of the National Cereals and Produce Board. Farmers are encouraged to collect their supplies. |
+| 3 | Agriculture | Farmers in Wajir are invited to participate in the KSh. 5 billion Livestock Investment Drive launched by President Ruto. |
+| 4 | Agriculture | Farmers are encouraged to participate in the sugarcane ethanol initiative to help lower fuel prices and boost the sugar sector. |
+| 5 | Agriculture | A KSh. 34.4 billion program has been launched to enhance climate resilience, food security, and sustainable livelihoods. Stakeholders in agriculture are encouraged to participate. |
+
+The sample demonstrates the structure of the dataset and illustrates the type of public service messages collected. Similar records were gathered across multiple domains to support translation, preprocessing, and model development.
 
 
 
