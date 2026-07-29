@@ -11,7 +11,7 @@ indigenous languages, and deploying the result as a working demo.
 
 ---
 
-## 1. Project Overviewcd DSA4020_PSA_Project_G2
+## 1. Project Overview DSA4020_PSA_Project_G2
 
 **Goal:** build a deployable digital public good that translates PSAs between English/Kiswahili
 and under-resourced Kenyan languages — **Ekegusii** (Bantu), — demonstrating few-shot cross-lingual transfer learning on a curated,
