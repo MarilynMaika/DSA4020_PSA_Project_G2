@@ -207,6 +207,19 @@ python3 quality_check.py
 
 ---
 
+### Challenges Faced
+
+- **Limited GPU Resources**
+  - Training and fine-tuning transformer-based models required significant computational power.
+  - Limited GPU availability increased training time and restricted experimentation with larger models and hyperparameter tuning.
+
+- **API Key Limitations for Few-Shot Ekegusii Translation**
+  - The translation pipeline relied on external APIs for few-shot translation into Ekegusii.
+  - API usage quotas, rate limits, and associated costs constrained the number of translation requests that could be made during dataset preparation.
+
+- **Manual Validation by Native Ekegusii Speakers**
+  - Since automated evaluation tools for Ekegusii are limited, translated texts had to be manually validated by native speakers.
+  - This process was time-consuming and required careful review to ensure linguistic accuracy, cultural appropriateness, and consistency across the dataset.
 
 
 ## License
