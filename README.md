@@ -184,7 +184,10 @@ The chart illustrates the number of Public Service Announcements (PSAs) across d
 Overall, the distribution shows that educational content dominates the dataset, while Agriculture, Health, and Security also receive substantial attention. Governance has comparatively fewer PSAs.
 
 ## Finetuning
+
+Both fewshot and zeroshot.
  -mt5
+ 
  -NLLB
 
 ---
