@@ -25,10 +25,6 @@ domain-specific PSA dataset.
 > advisory, and PSAs are usually produced without commercial intent by government agencies,
 > NGOs, or media outlets.
 
-**Examples:**
-- *"IEBC reminds voters to verify their details via SMS."*
-- *"Ministry of Health: Avoid unnecessary travel to Ebola hotspots."*
-
 ### Team & Tools
 - **Team size:** 5 students
 - **Duration:** 4 weeks
@@ -240,6 +236,4 @@ python3 quality_check.py
   - This process was time-consuming and required careful review to ensure linguistic accuracy, cultural appropriateness, and consistency across the dataset.
 
 
-## License
 
-To be finalized for the Week 4 deliverable (e.g. CC-BY).
