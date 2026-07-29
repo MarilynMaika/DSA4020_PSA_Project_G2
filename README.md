@@ -158,6 +158,34 @@ pipeline automatically tops up generation if dedup/QC drop the row count below 7
 Full details, summary statistics, sample entries, and challenges for both datasets are in the
 [Week 1 Report](Week1_Report.docx).
 
+
+### EDA Findings
+### PSA Count by Domain
+
+The chart illustrates the number of Public Service Announcements (PSAs) across different domains. For reporting purposes, **Security** and **Security & Safety** have been combined into a single category.
+
+| Domain | PSA Count |
+|---------|----------:|
+| Education | 5,300 |
+| Agriculture | 4,500 |
+| Health | 4,100 |
+| Security (Security + Security & Safety) | 4,000 |
+| Governance | 3,500 |
+
+**Summary**
+
+- **Education** has the highest number of PSAs (5,300), indicating the greatest emphasis among all domains.
+- **Agriculture** follows with approximately **4,500** PSAs.
+- **Health** contains about **4,100** PSAs, making it one of the most represented domains.
+- After combining **Security** (1,000) and **Security & Safety** (3,000), the **Security** category totals **4,000** PSAs.
+- **Governance** has the lowest count among the merged categories, with approximately **3,500** PSAs.
+
+Overall, the distribution shows that educational content dominates the dataset, while Agriculture, Health, and Security also receive substantial attention. Governance has comparatively fewer PSAs.
+
+## Finetuning
+ -mt5
+ -NLLB
+
 ---
 
 ## 7. Running the Pipeline
