@@ -237,7 +237,31 @@ python3 dedup.py
 python3 quality_check.py
 ```
 
-**Requires:** `pandas`, `numpy`, `rapidfuzz`.
+## Week 3: Modeling with Transfer Learning
+
+This phase focused on building an English-to-Swahili Neural Machine Translation (NMT) system using transfer learning techniques. Pre-trained transformer-based models were fine-tuned on the curated PSA dataset to leverage existing multilingual knowledge while adapting the models to the public service announcement domain.
+
+The training process involved dataset tokenization, model fine-tuning, hyperparameter optimization, and periodic evaluation on validation data. Transfer learning significantly reduced training time while improving translation quality compared to training a model from scratch.
+
+**Key Outputs**
+- Fine-tuned English–Swahili translation model
+- Training and validation notebooks
+- Saved model checkpoints
+- Performance metrics and training logs
+
+---
+
+## Week 4: Evaluation, Deployment & Documentation
+
+The final phase involved evaluating the translation model, documenting the complete pipeline, and preparing the project for deployment and presentation. Model performance was assessed using standard machine translation evaluation metrics alongside qualitative analysis of translated Public Service Announcements.
+
+The repository was organized into a reproducible workflow, documentation was completed, and deployment artifacts were prepared to facilitate future use and further development. This phase also included preparing the final technical report and presentation materials summarizing the project's methodology, implementation, results, and conclusions.
+
+**Key Outputs**
+- Model evaluation results
+- Deployment-ready project structure
+- Final documentation and technical report
+- Presentation materials
 
 ---
 
