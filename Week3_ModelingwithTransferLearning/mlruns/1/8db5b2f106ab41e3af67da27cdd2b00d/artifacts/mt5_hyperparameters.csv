@@ -1,0 +1,2 @@
+Model,Pair,Epochs,Batch size,Learning rate,Frozen encoder layers,fp16,Gradient checkpointing,Train time (min)
+mT5-small,combined (en+sw)->guz,5,32,0.0003,4/8,False,False,89.9
