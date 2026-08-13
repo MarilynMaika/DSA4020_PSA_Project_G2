@@ -195,9 +195,76 @@ DSA4020_PSA_Project_G2/
 **Goal:** a parallel dataset of ≥5,000 sentences, hybrid-sourced and structured for downstream modeling.
 
 - **Sources documented:** ≥10 reliable sources across government sites, media archives, and NGOs (see `Sources Used for Data Collection.docx`).
+  ## Sources Used for Data Collection
+
+The dataset was collected using a combination of **automated web scraping and manual data collection** from reliable and publicly available sources. The main sources included government websites and agencies, official government publications, media platforms, international organizations, NGOs, and official social-media accounts.
+
+| # | Source | Source Type |
+|---:|---|---|
+| 1 | Ministry of Agriculture & Livestock Development (MoALD) | Government Website |
+| 2 | Education News | Media |
+| 3 | Kenya News | Media |
+| 4 | Kenya News Agency (KNA) | Government / State Media |
+| 5 | Ministry of Education Kenya | Government Website |
+| 6 | Kenya Institute of Curriculum Development (KICD) | Government Agency |
+| 7 | Open Government Partnership (OGP) | International Organization |
+| 8 | Google News | News Aggregator |
+| 9 | Ethics and Anti-Corruption Commission (EACC) | Government Agency |
+| 10 | Kenya Gazette | Official Government Publication |
+| 11 | Tuko Politics | Media |
+| 12 | BBC Swahili | Media |
+| 13 | Capital FM | Media |
+
 - **Hybrid scraping pipeline:** manual + automated collection (BeautifulSoup/Selenium), respecting `robots.txt` and rate limits — see `hybrid_scraping_pipeline/Scrapping_manual_hybrid/`.
 - **Raw scrape:** individual member scraping efforts combined into a **merged dataset of 6,236 rows**,spanning Education, Agriculture, Security & Safety, Governance, and Health.
 - **Synthetic augmentation:** rather than stopping at the raw scrape, a second pipeline (`psa_bootstrapped_generation_pipeline/`) mined real Kenyan issuing authorities and PSA phrasing patterns from the merged scrape, then used them to fill hand-authored templates across all 25 domain × sub-category combinations — generating a **synthetic dataset of 15,000 rows**, deduplicated (exact + fuzzy matching) and rule-checked for quality.
+
+  ## How the Synthetic Data Generation Files Work
+
+The synthetic PSA generation process uses the **6,236 real scraped PSA records as the foundation** for generating additional realistic training data. The process first extracts real Kenyan authorities, PSA phrasing, and reference information from the collected data. These elements are then combined with manually designed templates and contextual variables such as counties, months, and topics. The generated PSAs are subsequently deduplicated and passed through quality checks before being saved as the final synthetic dataset.
+
+| File | Role in the Synthetic Data Generation Process | How It Works |
+|---|---|---|
+| **`mine_source.py`** | **Source Mining** | Reads the real scraped dataset and identifies **PSA-like messages, issuing authorities, common PSA phrases, and reference information**. The extracted information is saved in the `mined/` folder for use during generation. |
+| **`authorities.json`** | **Authority Repository** | Stores authorities and organizations identified from the real PSA data. These can be reused when generating new PSAs so that the synthetic messages remain grounded in realistic Kenyan institutions and organizations. |
+| **`phrases.json`** | **PSA Phrase Repository** | Stores common phrases and expressions identified from real PSAs. These phrases help the generator produce messages that resemble the language and communication style of actual public-service announcements. |
+| **`reference_lines.json`** | **Reference Information** | Stores relevant source/reference information extracted during the mining stage. It provides additional contextual information that can be used to keep generated PSAs connected to the original scraped material. |
+| **`templates.py`** | **PSA Template Design** | Contains manually designed templates for generating PSAs across the project's domain and sub-category combinations. The templates provide the basic sentence structures into which mined information and contextual variables are inserted. |
+| **`config.py`** | **Pipeline Configuration** | Defines important settings used throughout the pipeline, including the PSA taxonomy, Kenyan counties, paths, contact channels, and generation targets. |
+| **`generate.py`** | **Synthetic PSA Generation** | Combines the templates with information mined from the real dataset, such as authorities, phrases, counties, months, and topics, to generate new realistic PSA records. |
+| **`dedup.py`** | **Duplicate Removal** | Checks the generated PSAs for duplicate or highly similar messages using exact and fuzzy matching. It removes unwanted duplicates while preserving legitimate variations, such as messages referring to different counties or months. |
+| **`quality_check.py`** | **Quality Assurance** | Performs rule-based checks on the generated PSAs. It checks formatting, punctuation, grammar, completeness, and other quality issues and removes or corrects invalid records. |
+| **`pipeline.py`** | **Pipeline Controller** | Coordinates the complete process by running the source mining, generation, deduplication, and quality-checking stages in the correct sequence. |
+| **`kenyan_psa_synthetic_15000.csv`** | **Final Synthetic Dataset** | Contains the expanded synthetic PSA dataset produced after the generation and quality-control stages. It provides additional training material beyond the original real scraped data. |
+| **`quality_report.txt`** | **Generation Quality Report** | Records the results of the quality-checking stage and provides information about the quality-control process applied to the generated dataset. |
+
+### Overall Process
+
+The synthetic-data workflow can therefore be summarized as:
+
+**6,236 Real PSAs**  
+↓  
+**`mine_source.py`**  
+↓  
+**Authorities + Phrases + References**  
+↓  
+**`templates.py` + `config.py`**  
+↓  
+**`generate.py`**  
+↓  
+**Synthetic PSA Generation**  
+↓  
+**`dedup.py`**  
+↓  
+**Duplicate Removal**  
+↓  
+**`quality_check.py`**  
+↓  
+**Quality Validation**  
+↓  
+**`kenyan_psa_synthetic_15000.csv`**
+
+
 
 ### PSA Domain Taxonomy
 
