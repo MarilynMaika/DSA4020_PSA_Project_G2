@@ -344,6 +344,10 @@ Two pretrained multilingual transformer models were fine-tuned on the curated da
 | **Optimizer** | AdamW | AdamW |
 | **Training time** | ~90 minutes (single A100 80GB GPU) | ~100 minutes (single A100 80GB GPU) |
 
+**Models on the Hugging Face Hub:**
+- mT5: [`HanaHailemariam/mt5-en-guz`](https://huggingface.co/HanaHailemariam/mt5-en-guz)
+- NLLB: [`HanaHailemariam/nllb-en-guz`](https://huggingface.co/HanaHailemariam/nllb-en-guz)
+
 **Experiment tracking:** all runs tracked via MLflow (`experiment_tracking/mlflow.db`, `mlruns/`) — per-epoch loss/BLEU/chrF, hyperparameters, and training time logged automatically.
 
 ### Ablation: Zero-shot vs. Few-shot
@@ -359,6 +363,18 @@ mT5's chrF improved roughly **20×** (1.2 → ~25) from zero-shot to few-shot �
 
 A **domain-level ablation** (per-domain BLEU/chrF across the five PSA categories) is also included in `logs/*_domain_ablation.csv` for both models.
 
+<h3 align="center">NLLB Model Demonstration</h3>
+
+<p align="center">
+  <img src="Screen_shoots/NLLB_notebook_demo.png" 
+       alt="NLLB Notebook Demo"
+       width="700">
+</p>
+
+<p align="center">
+  <em>Figure: Demonstration of the NLLB model in the translation notebook.</em>
+</p>
+
 ### GPU & Environment Troubleshooting (Mid-week check-in)
 
 Two infrastructure issues required troubleshooting before training could proceed cleanly:
@@ -367,9 +383,6 @@ Our first obstacle wasn't a code issue but an infrastructure misconfiguration: o
 
 A second issue arose once training began: a `RuntimeError: Failed to find C compiler` was raised by PyTorch's Triton backend, which attempts to just-in-time compile certain attention operations and requires a system-level C compiler unavailable in our minimal base image. This was resolved by pinning an older PyTorch version to avoid the Triton compilation path entirely, with one further version adjustment required to satisfy a `transformers` security check (CVE-2025-32434) mandating PyTorch ≥2.6 for safe checkpoint loading. Full details in `GPU&Environment_troubleshooting.docx`.
 
-**Models on the Hugging Face Hub:**
-- mT5: [`HanaHailemariam/mt5-en-guz`](https://huggingface.co/HanaHailemariam/mt5-en-guz)
-- NLLB: [`HanaHailemariam/nllb-en-guz`](https://huggingface.co/HanaHailemariam/nllb-en-guz)
 
 ---
 
