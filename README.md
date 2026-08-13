@@ -292,7 +292,6 @@ Manual inspection of model outputs — not aggregate metrics alone — surfaced 
 
 2. **NLLB defaulting to Kiswahili instead of Ekegusii.** Root-cause analysis traced this to a preprocessing defect: the tokenizer's target-language state was never explicitly set during label tokenization, so training labels were inconsistently tagged rather than consistently marked as Ekegusii. Combined with NLLB's strong pretrained association between the placeholder tag (borrowed from Kiswahili) and genuine Kiswahili, the model defaulted toward its pretrained behavior at generation time. **This was fixed** by explicitly setting `tokenizer.tgt_lang` before encoding every training label, and the model was retrained.
 
-   Interestingly, the retrained model's few-shot BLEU is *lower* than the original buggy run's (see the ablation table above) — we believe this reflects the earlier run's output being fluent **Kiswahili**, which shares enough vocabulary with the closely related Bantu language Ekegusii to score deceptively well against the reference on exact n-gram overlap, despite being the wrong language. The corrected model's lower BLEU alongside comparable chrF is consistent with it producing genuinely different, non-Kiswahili output — this is discussed further with the course instructor, at whose suggestion the retrain was carried out.
 
 ### Human Evaluation (Preliminary)
 
