@@ -111,6 +111,14 @@ Every PSA is labeled with one of 5 domains, each with 5 sub-categories (25 combi
 - **Native-speaker validation:** a subset reviewed by native Ekegusii speakers to sanity-check translation quality ahead of modeling.
 - **Modeling splits:** `train.csv`, `val.csv`, `test.csv` — split by **unique PSA identifier** (not by row) to prevent the English and Kiswahili versions of the same PSA from leaking across train/test, since both map to the same Ekegusii target.
 
+| Split | Percentage |
+|---|--:|
+| Train | 80% |
+| Validation | 10% |
+| Test | 10% |
+
+*Split by unique `PSA_ID` (not by row) using `GroupShuffleSplit` — first 80/20 into train/temp, then temp split 50/50 into validation/test — ensuring the English and Kiswahili versions of the same PSA always land in the same split.*
+
 ---
 
 ## 5. Week 3 — Modeling with Transfer Learning *(Sub-objective 2)*
