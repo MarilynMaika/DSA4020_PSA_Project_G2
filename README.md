@@ -455,6 +455,18 @@ The fine-tuned models are served through a public **Streamlit** web app: paste a
 - Per-translation confidence score (mean token probability), explicitly labeled as a rough signal rather than a guarantee
 - Feedback form (Good / Needs work + optional comment), stored locally and not shared elsewhere
 
+  <h3 align="center">PSA Translation Application Features</h3>
+
+<p align="center">
+  <img src="Screen_shoots/app_features.png"
+       alt="PSA Translation Application Features"
+       width="700">
+</p>
+
+<p align="center">
+  <em>Figure: Key features of the deployed PSA translation application.</em>
+</p>
+
 ---
 
 ## 7. License
