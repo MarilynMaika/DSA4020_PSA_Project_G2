@@ -251,7 +251,7 @@ Two pretrained multilingual transformer models were fine-tuned on the curated da
 | **Precision** | fp32 (fp16 causes NaN losses on mT5) | bf16-capable |
 | **Epochs** | 5, best checkpoint selected by validation BLEU | 5, best checkpoint selected by validation BLEU |
 | **Optimizer** | AdamW | AdamW |
-| **Training time** | ~90 minutes (single A100 80GB GPU) | ~90 minutes (single A100 80GB GPU) |
+| **Training time** | ~90 minutes (single A100 80GB GPU) | ~100 minutes (single A100 80GB GPU) |
 
 **Experiment tracking:** all runs tracked via MLflow (`experiment_tracking/mlflow.db`, `mlruns/`) — per-epoch loss/BLEU/chrF, hyperparameters, and training time logged automatically.
 
