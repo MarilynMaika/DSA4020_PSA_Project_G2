@@ -99,7 +99,6 @@ Every PSA is labeled with one of 5 domains, each with 5 sub-categories (25 combi
 | 2 | Agriculture | Trucks ferrying top-dressing fertilizer are now arriving at the Eldoret Depot of the National Cereals and Produce Board. Farmers are encouraged to collect their supplies. |
 | 3 | Agriculture | Farmers in Wajir are invited to participate in the KSh. 5 billion Livestock Investment Drive launched by President Ruto. |
 
-*(full samples across all five domains in `Week1_Report.docx`)*
 
 **Ekegusii translation:** LLM-based, few-shot-prompted translation from English/Kiswahili into Ekegusii, followed by **manual validation from native Ekegusii speakers**.
 
