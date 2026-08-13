@@ -436,6 +436,18 @@ The fine-tuned models are served through a public **Streamlit** web app: paste a
 
 - **Deployment source:** [`ibtj21/psa-translation`](https://github.com/ibtj21/psa-translation) (companion repo connected to the live Streamlit deployment; a copy of the same code is included here under `Week4_ Evaluation,Deployment&Documentation/deployment/`)
 
+  <h3 align="center">PSA Translation Application Demo</h3>
+
+<p align="center">
+  <img src="Screen_shoots/app_demo.png"
+       alt="PSA Translation Application Demo"
+       width="700">
+</p>
+
+<p align="center">
+  <em>Figure: Demonstration of the deployed PSA translation application.</em>
+</p>
+
 **App features:**
 - Example PSA picker, drawing real sentences from the held-out test set
 - Source language selector (English / Kiswahili); target language is fixed to Ekegusii
