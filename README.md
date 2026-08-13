@@ -30,35 +30,154 @@ This project builds a proof-of-concept, deployable machine translation system fo
 
 ## 2. Repository Structure
 
-```
+```text
 DSA4020_PSA_Project_G2/
-├── README.md                                    ← you are here
+│
 ├── Week1_ Data Collection & Curation/
-│   ├── Sources Used for Data Collection.docx     ← ≥10 documented sources
-│   ├── Week1_Report.docx                         ← dataset summary, samples, challenges
-│   └── hybrid_scraping_pipeline/
-│       ├── Scrapping_manual_hybrid/              ← manual + automated scraping (src/, raw datasets)
-│       └── psa_bootstrapped_generation_pipeline/ ← synthetic PSA generation (mining → templates → dedup → QC)
+│   │
+│   ├── hybrid_scraping_pipeline/
+│   │   │
+│   │   ├── Scrapping_manual_hybrid/
+│   │   │   │
+│   │   │   ├── Datasets/
+│   │   │   │   ├── PSA_KE_Final.csv
+│   │   │   │   ├── agriculture_psas_TRANSLATED.csv
+│   │   │   │   ├── agriculture_psas_final.csv
+│   │   │   │   ├── education_psa_TRANSLATED.csv
+│   │   │   │   ├── education_psa_dataset.csv
+│   │   │   │   ├── governance_psa_filtered.csv
+│   │   │   │   ├── governance_psa_translated.csv
+│   │   │   │   ├── kenya_psa_dataset_translations.csv
+│   │   │   │   ├── psa_security_safety_COMBINED.csv
+│   │   │   │   └── psa_security_safety_scraped.csv
+│   │   │   │
+│   │   │   ├── src/
+│   │   │   │   ├── PSA2.py
+│   │   │   │   ├── PSA_Security_Safety_Scraper.ipynb
+│   │   │   │   ├── PSA_scrapping.py
+│   │   │   │   └── psa_scraper.py
+│   │   │   
+│   │   │   
+│   │   │
+│   │   └── psa_bootstrapped_generation_pipeline/
+│   │       │
+│   │       └── psa_pipeline/
+│   │           │
+│   │           ├── data/
+│   │           │   ├── mined/
+│   │           │   │   ├── authorities.json
+│   │           │   │   ├── phrases.json
+│   │           │   │   └── reference_lines.json
+│   │           │   │
+│   │           │   └── merged_psa_dataset.csv
+│   │           │
+│   │           ├── output/
+│   │           │   ├── kenyan_psa_synthetic_15000.csv
+│   │           │   └── quality_report.txt
+│   │           │
+│   │           ├── src/
+│   │           │   ├── config.py
+│   │           │   ├── dedup.py
+│   │           │   ├── generate.py
+│   │           │   ├── mine_source.py
+│   │           │   ├── pipeline.py
+│   │           │   ├── quality_check.py
+│   │           │   └── templates.py
+│   │           │
+│   │           └── requirements.txt
+│   │
+│   ├── Sources Used for Data Collection.docx
+│   └── Week1_Report.docx
+│
 ├── Week2_ DataProcessing&EDA/
-│   ├── Final_merged_psas.csv                     ← final ~21K-row dataset used for modeling
+│   │
+│   ├── Final_merged_psas.csv
 │   ├── cultural_term_glossary.csv
 │   ├── merge_psas.py
-│   ├── psa_preprocessing_eda.ipynb               ← preprocessing + full EDA
-│   └── train.csv / val.csv / test.csv            ← modeling splits
+│   ├── psa_preprocessing_eda.ipynb
+│   ├── test.csv
+│   ├── train.csv
+│   └── val.csv
+│
 ├── Week3_ModelingwithTransferLearning/
-│   ├── training/                                 ← mt5_training.ipynb, nllb_training.ipynb
-│   ├── logs/                                      ← per-model results, hyperparameters, domain ablation, predictions
-│   ├── experiment_tracking/                       ← mlflow.db, mlruns/ (MLflow tracking)
+│   │
+│   ├── domain_ablation/
+│   │   ├── mt5_domain_ablation.csv
+│   │   └── nllb_domain_ablation.csv
+│   │
+│   ├── experiment_tracking/
+│   │   │
+│   │   ├── mlruns/
+│   │   │   │
+│   │   │   ├── 1/
+│   │   │   │   └── 8db5b2f106ab41e3af67da27cdd2b00d/
+│   │   │   │       └── artifacts/
+│   │   │   │           ├── mt5_domain_ablation.csv
+│   │   │   │           ├── mt5_hyperparameters.csv
+│   │   │   │           ├── mt5_results_table.csv
+│   │   │   │           ├── mt5_test_predictions.csv
+│   │   │   │           └── mt5_training_log.csv
+│   │   │   │
+│   │   │   └── 2/
+│   │   │       └── d12223e2a1f3443b86ccee28eb0382d5/
+│   │   │           └── artifacts/
+│   │   │               ├── nllb_domain_ablation.csv
+│   │   │               ├── nllb_hyperparameters.csv
+│   │   │               ├── nllb_results_table.csv
+│   │   │               ├── nllb_test_predictions.csv
+│   │   │               └── nllb_training_log.csv
+│   │   │
+│   │   └── mlflow.db
+│   │
+│   ├── hyperparameters/
+│   │   ├── mt5_hyperparameters.csv
+│   │   └── nllb_hyperparameters.csv
+│   │
+│   ├── logs/
+│   │   ├── mt5_domain_ablation.csv
+│   │   ├── mt5_hyperparameters.csv
+│   │   ├── mt5_results.json
+│   │   ├── mt5_results_table.csv
+│   │   ├── mt5_test_predictions.csv
+│   │   ├── mt5_training_log.csv
+│   │   ├── nllb_domain_ablation.csv
+│   │   ├── nllb_hyperparameters.csv
+│   │   ├── nllb_results.json
+│   │   ├── nllb_results_so_far.json
+│   │   ├── nllb_results_table.csv
+│   │   ├── nllb_test_predictions.csv
+│   │   └── nllb_training_log.csv
+│   │
+│   ├── results/
+│   │   ├── mt5_results.json
+│   │   ├── mt5_results_table.csv
+│   │   ├── mt5_test_predictions.csv
+│   │   ├── nllb_results.json
+│   │   ├── nllb_results_so_far.json
+│   │   ├── nllb_results_table.csv
+│   │   └── nllb_test_predictions.csv
+│   │
+│   ├── training/
+│   │   ├── mt5_training.ipynb
+│   │   └── nllb_training.ipynb
+│   │
 │   ├── GPU&Environment_troubleshooting.docx
 │   └── requirements.txt
-└── Week4_ Evaluation,Deployment&Documentation/
-    ├── mt5_evaluation.ipynb / nllb_evaluation.ipynb
-    ├── Error Analysis and Limitations.docx
-    ├── Human_Evaluation.docx
-    └── deployment/                                ← app.py, requirements.txt, upload_models.py, access_the_app.docx
+│
+├── Week4_ Evaluation,Deployment&Documentation/
+│   │
+│   ├── deployment/
+│   │   ├── access_the_app.docx
+│   │   ├── app.py
+│   │   ├── requirements.txt
+│   │   └── upload_models.py
+│   │
+│   ├── Error Analysis and Limitations.docx
+│   └── Human_Evaluation.docx
+│
+└── README.md
 ```
 
----
 
 ## 3. Week 1 — Data Collection & Curation *(Sub-objective 1)*
 
