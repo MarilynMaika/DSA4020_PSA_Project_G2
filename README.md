@@ -191,7 +191,7 @@ Full write-up in `Human_Evaluation.docx` and `Error Analysis and Limitations.doc
 
 The fine-tuned models are served through a public **Streamlit** web app: paste a PSA, pick a source language (English or Kiswahili), select a model, and get an Ekegusii translation.
 
-- **Live demo:** [INSERT LIVE STREAMLIT URL HERE]
+- **Live demo:**(https://psa-translation-jq7jgyyhuftkghnzggjum7.streamlit.app/)
 
   > *Note: If you're trying the app after a period of inactivity, it may have gone to sleep to conserve hosting resources. It usually wakes up on its own within about a minute — try refreshing if it doesn't load right away. If it's still unresponsive after that, feel free to email [21ibtj@gmail.com](mailto:21ibtj@gmail.com) and we'll wake it back up so you can try your translations.*
 
