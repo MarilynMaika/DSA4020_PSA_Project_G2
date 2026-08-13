@@ -241,30 +241,35 @@ The synthetic PSA generation process uses the **6,236 real scraped PSA records a
 
 ### Overall Process
 
-The synthetic-data workflow can therefore be summarized as:
+<h3 align="center">Synthetic Data Generation Workflow</h3>
 
-**6,236 Real PSAs**  
-↓  
-**`mine_source.py`**  
-↓  
-**Authorities + Phrases + References**  
-↓  
-**`templates.py` + `config.py`**  
-↓  
-**`generate.py`**  
-↓  
-**Synthetic PSA Generation**  
-↓  
-**`dedup.py`**  
-↓  
-**Duplicate Removal**  
-↓  
-**`quality_check.py`**  
-↓  
-**Quality Validation**  
-↓  
-**`kenyan_psa_synthetic_15000.csv`**
+<p align="center">
+  <strong>6,236 Real PSAs</strong><br>
+  ↓<br>
+  <strong><code>mine_source.py</code></strong><br>
+  ↓<br>
+  <strong>Authorities + Phrases + References</strong><br>
+  ↓<br>
+  <strong><code>templates.py</code> + <code>config.py</code></strong><br>
+  ↓<br>
+  <strong><code>generate.py</code></strong><br>
+  ↓<br>
+  <strong>Synthetic PSA Generation</strong><br>
+  ↓<br>
+  <strong><code>dedup.py</code></strong><br>
+  ↓<br>
+  <strong>Duplicate Removal</strong><br>
+  ↓<br>
+  <strong><code>quality_check.py</code></strong><br>
+  ↓<br>
+  <strong>Quality Validation</strong><br>
+  ↓<br>
+  <strong><code>kenyan_psa_synthetic_15000.csv</code></strong>
+</p>
 
+<p align="center">
+  <em>Figure: Overview of the synthetic PSA generation and quality-control workflow.</em>
+</p>
 
 
 ### PSA Domain Taxonomy
