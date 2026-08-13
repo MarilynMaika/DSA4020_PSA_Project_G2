@@ -12,7 +12,17 @@ This project builds a proof-of-concept, deployable machine translation system fo
 > **What is a PSA?** A Public Service Announcement is a short, clear, action-oriented — and sometimes urgent — message that informs, warns, or guides the public about something they should do (health measures, safety advisories, deadlines, disaster alerts). PSAs are typically produced without commercial intent by government agencies, NGOs, or media outlets, and their tone is usually directive or advisory.
 
 ### Team & Tools
-- **Team:** Ian Karugu, Queen Kibegi, Sevidzem Marilyn, Sylvia Njane, Hana Gashaw
+
+- Group 2 — Team Members
+
+| Name | Student ID |
+|---|---|
+| Hana Gashaw | 670555 |
+| Ian Karugu | 666718 |
+| Queen Kibegi | 668897 |
+| Sevidzem Marilyn | 669229 |
+| Sylvia Njane | 669203 |
+
 - **Duration:** 4 weeks
 - **Stack:** Python (Hugging Face `transformers`, `datasets`, `accelerate`, pandas, BeautifulSoup, Selenium), MLflow (experiment tracking), sacrebleu/`evaluate` (BLEU, chrF), Streamlit (deployment)
 
