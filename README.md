@@ -185,7 +185,8 @@ DSA4020_PSA_Project_G2/
 │   ├── Error Analysis and Limitations.docx
 │   ├── Poster.pdf
 │   └── Human_Evaluation.docx
-│
+│├── Screenshoots
+|├── LICENSE 
 └── README.md
 ```
 
