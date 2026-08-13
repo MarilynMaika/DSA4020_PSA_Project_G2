@@ -219,7 +219,7 @@ The dataset was collected using a combination of **automated web scraping and ma
 - **Raw scrape:** individual member scraping efforts combined into a **merged dataset of 6,236 rows**,spanning Education, Agriculture, Security & Safety, Governance, and Health.
 - **Synthetic augmentation:** rather than stopping at the raw scrape, a second pipeline (`psa_bootstrapped_generation_pipeline/`) mined real Kenyan issuing authorities and PSA phrasing patterns from the merged scrape, then used them to fill hand-authored templates across all 25 domain × sub-category combinations — generating a **synthetic dataset of 15,000 rows**, deduplicated (exact + fuzzy matching) and rule-checked for quality.
 
-  ## How the Synthetic Data Generation Files Work
+## How the Synthetic Data Generation Files Work
 
 The synthetic PSA generation process uses the **6,236 real scraped PSA records as the foundation** for generating additional realistic training data. The process first extracts real Kenyan authorities, PSA phrasing, and reference information from the collected data. These elements are then combined with manually designed templates and contextual variables such as counties, months, and topics. The generated PSAs are subsequently deduplicated and passed through quality checks before being saved as the final synthetic dataset.
 
