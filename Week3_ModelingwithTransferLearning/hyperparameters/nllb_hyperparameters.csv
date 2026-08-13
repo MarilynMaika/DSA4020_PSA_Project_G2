@@ -1,0 +1,2 @@
+Model,Pair,Epochs,Batch size,Learning rate,Frozen encoder layers,Optimizer,fp16,Gradient checkpointing,Train time (min)
+NLLB-200-distilled-600M,combined (en+sw)->guz,5,16 (x1 accum),5e-05,6/12,adamw_torch,False,False,107.2

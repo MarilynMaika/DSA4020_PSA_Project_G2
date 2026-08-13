@@ -1,0 +1,22 @@
+[
+  {
+    "name": "nllb_zero-shot_en-guz",
+    "bleu": 5.577203213812712,
+    "chrf": 22.883817959339744
+  },
+  {
+    "name": "nllb_zero-shot_sw-guz",
+    "bleu": 6.461803562842053,
+    "chrf": 24.236963685790702
+  },
+  {
+    "name": "nllb_few-shot_en-guz",
+    "bleu": 3.4945572866819745,
+    "chrf": 25.267778928605466
+  },
+  {
+    "name": "nllb_few-shot_sw-guz",
+    "bleu": 3.081163238019505,
+    "chrf": 25.195431731466712
+  }
+]
