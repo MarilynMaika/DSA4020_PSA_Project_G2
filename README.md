@@ -305,6 +305,13 @@ Every PSA is labeled with one of 5 domains, each with 5 sub-categories (25 combi
 
 - **Preprocessing pipeline** (`psa_preprocessing_eda.ipynb`): tokenization, normalization, code-switching handling, and a dedicated **cultural-term glossary** (`cultural_term_glossary.csv`) for domain-specific vocabulary that doesn't translate literally.
 - **EDA:** domain distribution, text length distributions, vocabulary size, and language-pair statistics across the full 21,306-row dataset (see table above).
+
+  ## PSA Distribution Across Domains
+
+The following figure shows the distribution of Public Service Announcements (PSAs) across the different domains in the dataset.
+
+![PSA Distribution Across Domains](Screen_shoots/Distribution_across_domains.png)
+
 - **Native-speaker validation:** a subset reviewed by native Ekegusii speakers to sanity-check translation quality ahead of modeling.
 - **Modeling splits:** `train.csv`, `val.csv`, `test.csv` — split by **unique PSA identifier** (not by row) to prevent the English and Kiswahili versions of the same PSA from leaking across train/test, since both map to the same Ekegusii target.
 
