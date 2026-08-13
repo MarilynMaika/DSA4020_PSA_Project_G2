@@ -68,8 +68,6 @@ DSA4020_PSA_Project_G2/
 - **Hybrid scraping pipeline:** manual + automated collection (BeautifulSoup/Selenium), respecting `robots.txt` and rate limits — see `hybrid_scraping_pipeline/Scrapping_manual_hybrid/`.
 - **Raw scrape:** individual member scraping efforts combined into a **merged dataset of 6,236 rows**,spanning Education, Agriculture, Security & Safety, Governance, and Health.
 - **Synthetic augmentation:** rather than stopping at the raw scrape, a second pipeline (`psa_bootstrapped_generation_pipeline/`) mined real Kenyan issuing authorities and PSA phrasing patterns from the merged scrape, then used them to fill hand-authored templates across all 25 domain × sub-category combinations — generating a **synthetic dataset of 15,000 rows**, deduplicated (exact + fuzzy matching) and rule-checked for quality.
-  > *Note: the synthetic dataset file in this repo is currently named `kenyan_psa_synthetic_70000.csv`, reflecting the pipeline's initial generation target before deduplication/quality filtering reduced it to the final 15,000-row dataset described above — worth renaming for clarity in a future pass.*
-- **Final merged dataset:** real (scraped) + synthetic PSAs combined into **21,306 rows**, columns `PSA_ID, Domain, English, Kiswahili, Ekegusii, Source, Date, Metadata`.
 
 ### PSA Domain Taxonomy
 
