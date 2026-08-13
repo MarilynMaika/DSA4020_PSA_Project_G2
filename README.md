@@ -296,7 +296,7 @@ Manual inspection of model outputs — not aggregate metrics alone — surfaced 
 
 ### Human Evaluation (Preliminary)
 
-Ahead of a full structured evaluation, informal feedback was solicited from a native Ekegusii-speaking member of the course teaching staff, at two points:
+Ahead of a full structured evaluation, informal feedback was solicited from a native Ekegusii-speaking family and friends of a member , at two points:
 
 - **Before the fix:** translations were reported as not usable — beyond the literal repetition loops, even non-looping outputs did not read as coherent Ekegusii; words appeared disconnected from the source sentence's meaning.
 - **After the fix:** the same reviewer reported a clear improvement — outputs no longer repeated, and vocabulary was recognizably Ekegusii, generally staying relevant to the source sentence's topic. The reviewer was clear this is not yet fluent: sentence structure and grammatical coherence remain inconsistent, and a full, larger-scale (100+ sentence) structured human evaluation is planned as a next step.
