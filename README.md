@@ -350,6 +350,18 @@ Two pretrained multilingual transformer models were fine-tuned on the curated da
 
 **Experiment tracking:** all runs tracked via MLflow (`experiment_tracking/mlflow.db`, `mlruns/`) — per-epoch loss/BLEU/chrF, hyperparameters, and training time logged automatically.
 
+<h3 align="center">Training Loss Across Epochs</h3>
+
+<p align="center">
+  <img src="Screen_shoots/epoch_evolution.png"
+       alt="Training Loss Across Epochs"
+       width="700">
+</p>
+
+<p align="center">
+  <em>Figure: Evolution of model training performance across epochs.</em>
+</p>
+
 ### Ablation: Zero-shot vs. Few-shot
 
 | Model | Direction | Zero-shot BLEU | Zero-shot chrF | Few-shot BLEU | Few-shot chrF |
