@@ -24,7 +24,7 @@ MINED_AUTHORITIES_JSON = MINED_DIR / "authorities.json"
 MINED_PHRASES_JSON = MINED_DIR / "phrases.json"
 MINED_REFERENCE_JSON = MINED_DIR / "reference_lines.json"
 
-FINAL_CSV = OUTPUT_DIR / "kenyan_psa_synthetic_70000.csv"
+FINAL_CSV = OUTPUT_DIR / "kenyan_psa_synthetic_15000.csv"
 QUALITY_REPORT = OUTPUT_DIR / "quality_report.txt"
 
 for d in (DATA_DIR, MINED_DIR, OUTPUT_DIR):
@@ -82,11 +82,11 @@ DOMAIN_PREFIX = {
 # ----------------------------------------------------------------------
 # Generation target
 # ----------------------------------------------------------------------
-TOTAL_TARGET = 70_000
+TOTAL_TARGET = 15_000
 N_DOMAINS = len(TAXONOMY)
 N_SUBCATS_PER_DOMAIN = 5
 N_SUBCATS_TOTAL = N_DOMAINS * N_SUBCATS_PER_DOMAIN  # 25
-PER_SUBCATEGORY_TARGET = TOTAL_TARGET // N_SUBCATS_TOTAL  # 2800
+PER_SUBCATEGORY_TARGET = TOTAL_TARGET // N_SUBCATS_TOTAL  # 600
 
 # ----------------------------------------------------------------------
 # Kenyan counties (all 47) -- used to localize generated PSAs
