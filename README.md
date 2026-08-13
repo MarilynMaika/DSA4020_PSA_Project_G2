@@ -1,39 +1,22 @@
-# DSA4020_PSA_Project_G2
-
-# Kenyan Multilingual PSA Machine Translation
+# Kenyan PSA Machine Translation — English/Kiswahili → Ekegusii
 
 **DSA 4020A — Natural Language Processing | Semester Project**
 *Prepared under the supervision of Dr. Edward Ombui*
 
-Expectation : A proof-of-concept multilingual machine translation (MT) system for Kenyan Public Service
-Announcements (PSAs) — translating between English/Kiswahili and selected under-resourced
-indigenous languages, and deploying the result as a working demo.
-
 ---
 
-## 1. Project Overview DSA4020_PSA_Project_G2
+## 1. Project Overview
 
-**Goal:** build a deployable digital public good that translates PSAs between English/Kiswahili
-and under-resourced Kenyan languages — **Ekegusii** (Bantu), — demonstrating few-shot cross-lingual transfer learning on a curated,
-domain-specific PSA dataset.
+This project builds a proof-of-concept, deployable machine translation system for Kenyan Public Service Announcements (PSAs), translating from **English and Kiswahili into Ekegusii** — a Bantu language spoken by roughly 2.2 million people that has **no coverage at all** in the pretraining data of either model we fine-tuned. The end deliverable is a working public demo, built on top of two fine-tuned transformer models, developed across four weeks: data curation, processing and EDA, transfer-learning-based modeling, and evaluation/deployment.
 
-### What is a PSA?
-
-> A Public Service Announcement is a short, clear, action-oriented — and sometimes urgent —
-> message that informs, warns, or guides the public about something they should do (health
-> measures, safety advisories, deadlines, disaster alerts). Tone is typically directive or
-> advisory, and PSAs are usually produced without commercial intent by government agencies,
-> NGOs, or media outlets.
+> **What is a PSA?** A Public Service Announcement is a short, clear, action-oriented — and sometimes urgent — message that informs, warns, or guides the public about something they should do (health measures, safety advisories, deadlines, disaster alerts). PSAs are typically produced without commercial intent by government agencies, NGOs, or media outlets, and their tone is usually directive or advisory.
 
 ### Team & Tools
-- **Team size:** 5 students
+- **Team:** Ian Karugu, Queen Kibegi, Sevidzem Marilyn, Sylvia Njane, Hana Gashaw
 - **Duration:** 4 weeks
-- **Stack:** Python (Hugging Face, pandas, BeautifulSoup, Selenium), MT evaluation libraries
-  (BLEU/chrF/COMET/SacreBLEU), Streamlit/Gradio for deployment.
+- **Stack:** Python (Hugging Face `transformers`, `datasets`, `accelerate`, pandas, BeautifulSoup, Selenium), MLflow (experiment tracking), sacrebleu/`evaluate` (BLEU, chrF), Streamlit (deployment)
 
----
-
-## 2. Sub-Objectives
+### Sub-Objectives
 
 | # | Sub-objective | Points |
 |---|---|---|
@@ -45,40 +28,52 @@ domain-specific PSA dataset.
 
 ---
 
-## 3. Timeline & Milestones
+## 2. Repository Structure
 
-### Week 1 — Data Collection & Curation *(Sub-objective 1)* 
-- Identify and document ≥10 reliable sources (gov sites, X/Twitter, media archives, NGOs).
-- Hybrid scraping pipeline (manual + automated; BeautifulSoup/Selenium; robots.txt & rate limits respected).
-- Collect raw PSAs across Education, Health, Security, Agriculture, Governance.
-- Structured dataset with columns: `PSA_ID, Domain, English, Kiswahili, Target Languages (placeholders), Source, Date, Metadata`.
-- Initial cleaning: deduplication, language detection, relevance filtering.
-- Reach ≥5,000 parallel sentences with basic validation.
-- Submit Week 1 report (dataset summary stats, sample entries, challenges).
-
-### Week 2 — Data Processing & EDA *(Sub-objectives 1 & 2)*
-- Preprocessing pipeline (tokenization, normalization, code-switching handling, cultural-term glossary).
-- Full EDA: domain distribution, text length histograms, vocabulary size, language-pair stats.
-- Native-speaker validation subset (~500 sentences) + feedback.
-- Version-controlled cleaned dataset; train/dev/test splits.
-
-### Week 3 — Modeling with Transfer Learning *(Sub-objective 2)*
-- Experiment tracking (Weights & Biases / MLflow).
-- ≥2 pre-trained models fine-tuned few-shot (e.g. mT5-small, NLLB-200 distilled, mBART).
-- Low-resource training techniques (layer freezing, data augmentation); ablations (zero-shot vs. few-shot, domain adaptation).
-- Inference script + preliminary performance summary.
-
-### Week 4 — Evaluation, Deployment & Documentation *(Sub-objectives 3 & 4)*
-- Automatic metrics (BLEU, chrF, COMET, SacreBLEU) + human evaluation (fluency, adequacy, cultural accuracy) on 100+ sentences.
-- Error analysis and documented limitations.
-- Web app deployment (Streamlit/Gradio): input PSA → select target language → output translation, with confidence scores and a feedback form.
-- Final GitHub repo (code, dataset/link, notebooks, README, license) + final report + demo day.
+```
+DSA4020_PSA_Project_G2/
+├── README.md                                    ← you are here
+├── Week1_ Data Collection & Curation/
+│   ├── Sources Used for Data Collection.docx     ← ≥10 documented sources
+│   ├── Week1_Report.docx                         ← dataset summary, samples, challenges
+│   └── hybrid_scraping_pipeline/
+│       ├── Scrapping_manual_hybrid/              ← manual + automated scraping (src/, raw datasets)
+│       └── psa_bootstrapped_generation_pipeline/ ← synthetic PSA generation (mining → templates → dedup → QC)
+├── Week2_ DataProcessing&EDA/
+│   ├── Final_merged_psas.csv                     ← final ~21K-row dataset used for modeling
+│   ├── cultural_term_glossary.csv
+│   ├── merge_psas.py
+│   ├── psa_preprocessing_eda.ipynb               ← preprocessing + full EDA
+│   └── train.csv / val.csv / test.csv            ← modeling splits
+├── Week3_ModelingwithTransferLearning/
+│   ├── training/                                 ← mt5_training.ipynb, nllb_training.ipynb
+│   ├── logs/                                      ← per-model results, hyperparameters, domain ablation, predictions
+│   ├── experiment_tracking/                       ← mlflow.db, mlruns/ (MLflow tracking)
+│   ├── GPU&Environment_troubleshooting.docx
+│   └── requirements.txt
+└── Week4_ Evaluation,Deployment&Documentation/
+    ├── mt5_evaluation.ipynb / nllb_evaluation.ipynb
+    ├── Error Analysis and Limitations.docx
+    ├── Human_Evaluation.docx
+    └── deployment/                                ← app.py, requirements.txt, upload_models.py, access_the_app.docx
+```
 
 ---
 
-## 4. PSA Domain Taxonomy
+## 3. Week 1 — Data Collection & Curation *(Sub-objective 1)*
 
-Every PSA is labeled with one of 5 domains and one of 5 sub-categories each (25 combinations total):
+**Goal:** a parallel dataset of ≥5,000 sentences, hybrid-sourced and structured for downstream modeling.
+
+- **Sources documented:** ≥10 reliable sources across government sites, media archives, and NGOs (see `Sources Used for Data Collection.docx`).
+- **Hybrid scraping pipeline:** manual + automated collection (BeautifulSoup/Selenium), respecting `robots.txt` and rate limits — see `hybrid_scraping_pipeline/Scrapping_manual_hybrid/`.
+- **Raw scrape:** individual member scraping efforts combined into a **merged dataset of 6,236 rows**, drawn from **1,178 distinct sources**, spanning Education, Agriculture, Security & Safety, Governance, and Health.
+- **Synthetic augmentation:** rather than stopping at the raw scrape, a second pipeline (`psa_bootstrapped_generation_pipeline/`) mined real Kenyan issuing authorities and PSA phrasing patterns from the merged scrape, then used them to fill hand-authored templates across all 25 domain × sub-category combinations — generating a **synthetic dataset of 15,000 rows**, deduplicated (exact + fuzzy matching) and rule-checked for quality.
+  > *Note: the synthetic dataset file in this repo is currently named `kenyan_psa_synthetic_70000.csv`, reflecting the pipeline's initial generation target before deduplication/quality filtering reduced it to the final 15,000-row dataset described above — worth renaming for clarity in a future pass.*
+- **Final merged dataset:** real (scraped) + synthetic PSAs combined into **21,306 rows**, columns `PSA_ID, Domain, English, Kiswahili, Ekegusii, Source, Date, Metadata`.
+
+### PSA Domain Taxonomy
+
+Every PSA is labeled with one of 5 domains, each with 5 sub-categories (25 combinations total):
 
 | Domain | Sub-Categories |
 |---|---|
@@ -88,196 +83,138 @@ Every PSA is labeled with one of 5 domains and one of 5 sub-categories each (25 
 | **Security & Safety** | Public Safety Awareness · Crime Prevention · National Security · Gender-Based Violence · Cybersecurity |
 | **Governance** | Anti-Corruption Initiatives · Public Participation · Elections & Voter Education · Public Service Delivery · Devolution & Local Governance |
 
----
+### Final Dataset — Domain Distribution (21,306 rows)
 
-## 5. Repository Structure
+| Domain | PSA Count | Share |
+|---|--:|--:|
+| Education | 5,300 | 24.8% |
+| Agriculture | 4,500 | 20.9% |
+| Health | 4,100 | 19.2% |
+| Security & Safety | 4,000 | 18.8% |
+| Governance | 3,500 | 16.2% |
 
-```
-psa_pipeline/
-├── README.md                          # pipeline-level documentation
-├── requirements.txt
-├── src/
-│   ├── config.py                      # taxonomy, counties, paths, targets (single source of truth)
-│   ├── mine_source.py                 # Step 1: mine authorities & phrasing from merged scrape
-│   ├── templates.py                   # hand-authored PSA templates (25 domain x sub-category sets)
-│   ├── generate.py                    # Step 2: fill templates -> synthetic PSAs
-│   ├── dedup.py                       # Step 3: exact + fuzzy dedup (rapidfuzz)
-│   ├── quality_check.py               # Step 4: rule-based cleanup & validation
-│   └── pipeline.py                    # orchestrates Steps 1-4 end-to-end
-├── data/
-│   ├── merged_psa_dataset.csv         # combined team scrape (raw curation deliverable)
-│   └── mined/                         # authorities.json, phrases.json, reference_lines.json
-└── output/
-    ├── kenyan_psa_synthetic_15000.csv # final synthetic dataset
-    └── quality_report.txt
-```
-
----
-
-## 6. Current Status & Milestones of Group 2: 
-
-- **Data Collection & Curation**
-
-- **Data Processing & EDA**
-
--  **Modeling with Transfer Learning**
-
-Individual scraping efforts came up with **6,236 rows** combined,then the team
-combined every member's output into one **merged scraped dataset**, then built a pipeline to
-**mine that data for real Kenyan authorities and phrasing** and use them to generate a large,
-clean **synthetic dataset** grounded in that real-world material typically using bootstrapping.
-
-
-### Merged Scraped Dataset (`data/merged_psa_dataset.csv`)
-- **6,236 rows** across 11 columns: `PSA_ID, Domain, English, Kiswahili, Ekegusii, Somali, Dholuo, Target_Languages, Source, Date, Metadata`
-- **1,178 distinct sources** — government sites, media wires, NGOs, official corpora
-- Domain split: Education 1,852 · Agriculture 1,691 · Security & Safety 983 · Governance 937 · Health 773
-- Kiswahili filled for 69.5% of rows; Ekegusii/Somali/Dholuo partially filled (placeholders, pending translation)
-
-## Synthetic PSA Generation Pipeline
-
-The synthetic PSA generation pipeline consists of six modules that automate data mining, generation, quality assurance, and dataset creation.
-
-| Module | Brief Role |
-|--------|------------|
-| **config.py** | Defines the taxonomy, Kenyan counties, contact channels, file paths, and dataset generation targets. |
-| **mine_source.py** | Filters source data to identify PSA-like messages and extracts authorities and common PSA phrases for each domain. |
-| **templates.py** | Stores manually designed PSA templates and vocabulary for each of the 25 domain–sub-category combinations. |
-| **generate.py** | Generates synthetic PSAs by filling templates with authorities, counties, months, and topics to produce 70,000 target records. |
-| **dedup.py** | Removes duplicate records using exact and fuzzy matching while preserving legitimate county- or month-specific campaign variations. |
-| **quality_check.py** | Cleans and validates generated PSAs by correcting formatting, punctuation, grammar, and removing incomplete or invalid entries. |
-| **pipeline.py** | Coordinates the entire workflow, reruns generation when necessary, and ensures the final dataset contains exactly **70,000** high-quality PSAs. |
-
-
-###  Synthetic Dataset (`output/kenyan_psa_synthetic_15000.csv`)
-- **15,000 rows**, columns: `PSA_ID, Domain, English`
-- 100% unique `English` text and `PSA_ID`; zero nulls
-- Generated by mining real Kenyan issuing authorities and PSA phrasing patterns out of the
-  merged scrape, then filling hand-authored templates with those authorities plus counties,
-  months, and topics — followed by dedup and rule-based quality checks
-  
-# **Final Merged Dataset used for modelling (Synthetic + Real) : 21306 rows** 
-
-## **Major Steps**
-
-- 21306 rows final merged dataset(Bootstrapped synthetic + Real Scrapped(By group members + Provided by the lecturer)) Hybrid :`PSA_ID, Domain, English,Kswahili,Ekeguisi`
-  
-- Used LLM-based translation to Ekeguisi with fewshot
-  
-- Done Manual validation from Ekeguisi Speakers
-
-
-## Sample of the PSAs Collected
-
-The dataset contains Public Service Announcements (PSAs) collected from various domains, including Agriculture, Health, Education, Governance, and Security. Each record consists of a unique PSA identifier, the corresponding domain, and the PSA message in English. Table 1 presents a sample of the collected PSAs from the Agriculture domain.
-
-**Table 1. Sample of the Collected Public Service Announcements (PSAs)**
+### Sample Entries
 
 | PSA ID | Domain | English PSA |
-|--------:|----------|-------------|
+|--:|---|---|
 | 1 | Agriculture | Farmers are urged to prioritize safe agrochemical usage as Kenya hosts the World Farmers' Organisation General Assembly. |
 | 2 | Agriculture | Trucks ferrying top-dressing fertilizer are now arriving at the Eldoret Depot of the National Cereals and Produce Board. Farmers are encouraged to collect their supplies. |
 | 3 | Agriculture | Farmers in Wajir are invited to participate in the KSh. 5 billion Livestock Investment Drive launched by President Ruto. |
-| 4 | Agriculture | Farmers are encouraged to participate in the sugarcane ethanol initiative to help lower fuel prices and boost the sugar sector. |
-| 5 | Agriculture | A KSh. 34.4 billion program has been launched to enhance climate resilience, food security, and sustainable livelihoods. Stakeholders in agriculture are encouraged to participate. |
 
-The sample demonstrates the structure of the dataset and illustrates the type of public service messages collected. Similar records were gathered across multiple domains to support translation, preprocessing, and model development.
+*(full samples across all five domains in `Week1_Report.docx`)*
 
-
-
-
-### EDA Findings
-### PSA Count by Domain
-
-The chart illustrates the number of Public Service Announcements (PSAs) across different domains. For reporting purposes, **Security** and **Security & Safety** have been combined into a single category.
-
-| Domain | PSA Count |
-|---------|----------:|
-| Education | 5,300 |
-| Agriculture | 4,500 |
-| Health | 4,100 |
-| Security (Security + Security & Safety) | 4,000 |
-| Governance | 3,500 |
-
-**Summary**
-
-- **Education** has the highest number of PSAs (5,300), indicating the greatest emphasis among all domains.
-- **Agriculture** follows with approximately **4,500** PSAs.
-- **Health** contains about **4,100** PSAs, making it one of the most represented domains.
-- After combining **Security** (1,000) and **Security & Safety** (3,000), the **Security** category totals **4,000** PSAs.
-- **Governance** has the lowest count among the merged categories, with approximately **3,500** PSAs.
-
-Overall, the distribution shows that educational content dominates the dataset, while Agriculture, Health, and Security also receive substantial attention. Governance has comparatively fewer PSAs.
-
-## Finetuning
-
-Both fewshot and zeroshot.
-
-Used Models:
-
- -mt5
- 
- -NLLB
+**Ekegusii translation:** LLM-based, few-shot-prompted translation from English/Kiswahili into Ekegusii, followed by **manual validation from native Ekegusii speakers**.
 
 ---
 
-## 7. Running the Pipeline
+## 4. Week 2 — Data Processing & EDA *(Sub-objectives 1 & 2)*
 
-```bash
-cd src
-pip install -r ../requirements.txt
-python3 pipeline.py
-```
-
-To re-run an individual step (e.g. after editing `templates.py`):
-```bash
-python3 mine_source.py     # only needed if merged_psa_dataset.csv changes
-python3 generate.py
-python3 dedup.py
-python3 quality_check.py
-```
-
-## Week 3: Modeling with Transfer Learning
-
-This phase focused on building an English-to-Swahili Neural Machine Translation (NMT) system using transfer learning techniques. Pre-trained transformer-based models were fine-tuned on the curated PSA dataset to leverage existing multilingual knowledge while adapting the models to the public service announcement domain.
-
-The training process involved dataset tokenization, model fine-tuning, hyperparameter optimization, and periodic evaluation on validation data. Transfer learning significantly reduced training time while improving translation quality compared to training a model from scratch.
-
-**Key Outputs**
-- Fine-tuned English–Swahili translation model
-- Training and validation notebooks
-- Saved model checkpoints
-- Performance metrics and training logs
+- **Preprocessing pipeline** (`psa_preprocessing_eda.ipynb`): tokenization, normalization, code-switching handling, and a dedicated **cultural-term glossary** (`cultural_term_glossary.csv`) for domain-specific vocabulary that doesn't translate literally.
+- **EDA:** domain distribution, text length distributions, vocabulary size, and language-pair statistics across the full 21,306-row dataset (see table above).
+- **Native-speaker validation:** a subset reviewed by native Ekegusii speakers to sanity-check translation quality ahead of modeling.
+- **Modeling splits:** `train.csv`, `val.csv`, `test.csv` — split by **unique PSA identifier** (not by row) to prevent the English and Kiswahili versions of the same PSA from leaking across train/test, since both map to the same Ekegusii target.
 
 ---
 
-## Week 4: Evaluation, Deployment & Documentation
+## 5. Week 3 — Modeling with Transfer Learning *(Sub-objective 2)*
 
-The final phase involved evaluating the translation model, documenting the complete pipeline, and preparing the project for deployment and presentation. Model performance was assessed using standard machine translation evaluation metrics alongside qualitative analysis of translated Public Service Announcements.
+Two pretrained multilingual transformer models were fine-tuned on the curated dataset:
 
-The repository was organized into a reproducible workflow, documentation was completed, and deployment artifacts were prepared to facilitate future use and further development. This phase also included preparing the final technical report and presentation materials summarizing the project's methodology, implementation, results, and conclusions.
+| | mT5-small | NLLB-200-distilled-600M |
+|---|---|---|
+| **Conditioning** | Task-prefix in the input text (`"translate English to Ekegusii: "`) | Tokenizer-level target-language tag (Ekegusii has no native NLLB code, so a placeholder tag is used) |
+| **Low-resource technique** | 4 of 8 encoder layers frozen | 6 of 12 encoder layers frozen |
+| **Precision** | fp32 (fp16 causes NaN losses on mT5) | bf16-capable |
+| **Epochs** | 5, best checkpoint selected by validation BLEU | 5, best checkpoint selected by validation BLEU |
+| **Optimizer** | AdamW | AdamW |
+| **Training time** | ~90 minutes (single A100 80GB GPU) | ~90 minutes (single A100 80GB GPU) |
 
-**Key Outputs**
-- Model evaluation results
-- Deployment-ready project structure
-- Final documentation and technical report
-- Presentation materials
+**Experiment tracking:** all runs tracked via MLflow (`experiment_tracking/mlflow.db`, `mlruns/`) — per-epoch loss/BLEU/chrF, hyperparameters, and training time logged automatically.
+
+### Ablation: Zero-shot vs. Few-shot
+
+| Model | Direction | Zero-shot BLEU | Zero-shot chrF | Few-shot BLEU | Few-shot chrF |
+|---|---|--:|--:|--:|--:|
+| mT5-small | English→Ekegusii | 0.005 | 1.18 | 3.08 | 25.79 |
+| mT5-small | Kiswahili→Ekegusii | 0.013 | 1.44 | 2.69 | 24.57 |
+| NLLB-200 | English→Ekegusii | 5.58 | 22.88 | 3.49 | 25.27 |
+| NLLB-200 | Kiswahili→Ekegusii | 6.46 | 24.24 | 3.08 | 25.20 |
+
+mT5's chrF improved roughly **20×** (1.2 → ~25) from zero-shot to few-shot — strong evidence of genuine Ekegusii acquisition, since mT5 had zero prior exposure to the language. NLLB's zero-shot chrF starts much higher (likely cross-lingual transfer via its placeholder tag), but its **few-shot BLEU is lower than its own zero-shot BLEU** — see Section 6 for why this is not a regression in practice.
+
+A **domain-level ablation** (per-domain BLEU/chrF across the five PSA categories) is also included in `logs/*_domain_ablation.csv` for both models.
+
+### GPU & Environment Troubleshooting (Mid-week check-in)
+
+Two infrastructure issues required troubleshooting before training could proceed cleanly:
+
+Our first obstacle wasn't a code issue but an infrastructure misconfiguration: our compute environment had initially been provisioned in "Serverless" mode rather than pointed at our team's dedicated GPU grid, meaning no GPU was actually attached to the container despite the physical node having an NVIDIA A100 80GB available. This was diagnosed by running `nvidia-smi` inside the running app and receiving a "command not found" error, alongside confirming no `/dev/nvidia*` device files existed inside the container. The fix required explicitly targeting the existing GPU grid in the app's resource configuration, after which `nvidia-smi` correctly reported the attached A100.
+
+A second issue arose once training began: a `RuntimeError: Failed to find C compiler` was raised by PyTorch's Triton backend, which attempts to just-in-time compile certain attention operations and requires a system-level C compiler unavailable in our minimal base image. This was resolved by pinning an older PyTorch version to avoid the Triton compilation path entirely, with one further version adjustment required to satisfy a `transformers` security check (CVE-2025-32434) mandating PyTorch ≥2.6 for safe checkpoint loading. Full details in `GPU&Environment_troubleshooting.docx`.
+
+**Models on the Hugging Face Hub:**
+- mT5: [`HanaHailemariam/mt5-en-guz`](https://huggingface.co/HanaHailemariam/mt5-en-guz)
+- NLLB: [`HanaHailemariam/nllb-en-guz`](https://huggingface.co/HanaHailemariam/nllb-en-guz)
 
 ---
 
-### Challenges Faced
+## 6. Week 4 — Evaluation, Deployment & Documentation *(Sub-objectives 3 & 4)*
 
-- **Limited GPU Resources**
-  - Training and fine-tuning transformer-based models required significant computational power.
-  - Limited GPU availability increased training time and restricted experimentation with larger models and hyperparameter tuning.
+### Error Analysis
 
-- **API Key Limitations for Few-Shot Ekegusii Translation**
-  - The translation pipeline relied on external APIs for few-shot translation into Ekegusii.
-  - API usage quotas, rate limits, and associated costs constrained the number of translation requests that could be made during dataset preparation.
+Manual inspection of model outputs — not aggregate metrics alone — surfaced two distinct failure modes:
 
-- **Manual Validation by Native Ekegusii Speakers**
-  - Since automated evaluation tools for Ekegusii are limited, translated texts had to be manually validated by native speakers.
-  - This process was time-consuming and required careful review to ensure linguistic accuracy, cultural appropriateness, and consistency across the dataset.
+1. **mT5 repetition under greedy decoding.** On some inputs, mT5 entered a degenerate loop, repeating the same short phrase until hitting the maximum generation length. This was a decoding-strategy issue, not a training problem, and was resolved by switching from greedy decoding to **beam search** (`num_beams=4`) with `no_repeat_ngram_size` and `repetition_penalty` constraints.
 
+2. **NLLB defaulting to Kiswahili instead of Ekegusii.** Root-cause analysis traced this to a preprocessing defect: the tokenizer's target-language state was never explicitly set during label tokenization, so training labels were inconsistently tagged rather than consistently marked as Ekegusii. Combined with NLLB's strong pretrained association between the placeholder tag (borrowed from Kiswahili) and genuine Kiswahili, the model defaulted toward its pretrained behavior at generation time. **This was fixed** by explicitly setting `tokenizer.tgt_lang` before encoding every training label, and the model was retrained.
 
+   Interestingly, the retrained model's few-shot BLEU is *lower* than the original buggy run's (see the ablation table above) — we believe this reflects the earlier run's output being fluent **Kiswahili**, which shares enough vocabulary with the closely related Bantu language Ekegusii to score deceptively well against the reference on exact n-gram overlap, despite being the wrong language. The corrected model's lower BLEU alongside comparable chrF is consistent with it producing genuinely different, non-Kiswahili output — this is discussed further with the course instructor, at whose suggestion the retrain was carried out.
 
+### Human Evaluation (Preliminary)
+
+Ahead of a full structured evaluation, informal feedback was solicited from a native Ekegusii-speaking member of the course teaching staff, at two points:
+
+- **Before the fix:** translations were reported as not usable — beyond the literal repetition loops, even non-looping outputs did not read as coherent Ekegusii; words appeared disconnected from the source sentence's meaning.
+- **After the fix:** the same reviewer reported a clear improvement — outputs no longer repeated, and vocabulary was recognizably Ekegusii, generally staying relevant to the source sentence's topic. The reviewer was clear this is not yet fluent: sentence structure and grammatical coherence remain inconsistent, and a full, larger-scale (100+ sentence) structured human evaluation is planned as a next step.
+
+Full write-up in `Human_Evaluation.docx` and `Error Analysis and Limitations.docx`.
+
+### Limitations
+
+- Structured human evaluation with native speakers across 100+ sentences has not yet been completed; current native-speaker feedback is preliminary and qualitative.
+- NLLB's reliance on a repurposed placeholder language tag (rather than a dedicated Ekegusii token) remains an architectural constraint that preprocessing fixes mitigate but cannot fully eliminate.
+- Absolute translation quality remains modest (chrF in the low-to-mid 20s), reflecting the genuine scarcity of parallel Ekegusii training data rather than a flaw specific to either model.
+- Shared, constrained GPU access limited the number of full training iterations and hyperparameter sweeps feasible within the project timeline.
+- The public demo's free-tier hosting has a memory ceiling that required removing a "compare both models side by side" mode, so the live app currently serves one model per translation request.
+
+### Deployment
+
+The fine-tuned models are served through a public **Streamlit** web app: paste a PSA, pick a source language (English or Kiswahili), select a model, and get an Ekegusii translation.
+
+- **Live demo:** [INSERT LIVE STREAMLIT URL HERE]
+
+  > *Note: If you're trying the app after a period of inactivity, it may have gone to sleep to conserve hosting resources. It usually wakes up on its own within about a minute — try refreshing if it doesn't load right away. If it's still unresponsive after that, feel free to email [21ibtj@gmail.com](mailto:21ibtj@gmail.com) and we'll wake it back up so you can try your translations.*
+
+- **Deployment source:** [`ibtj21/psa-translation`](https://github.com/ibtj21/psa-translation) (companion repo connected to the live Streamlit deployment; a copy of the same code is included here under `Week4_ Evaluation,Deployment&Documentation/deployment/`)
+
+**App features:**
+- Example PSA picker, drawing real sentences from the held-out test set
+- Source language selector (English / Kiswahili); target language is fixed to Ekegusii
+- Model selector (mT5-small / NLLB-200-distilled-600M), with an inline note on NLLB's known Kiswahili-leakage limitation
+- Per-translation confidence score (mean token probability), explicitly labeled as a rough signal rather than a guarantee
+- Feedback form (Good / Needs work + optional comment), stored locally and not shared elsewhere
+
+---
+
+## 7. License
+
+This project is released under the **MIT License**. See `LICENSE` for full terms.
+
+---
+
+## 8. Challenges Faced
+
+- **Limited GPU resources** — training and fine-tuning transformer models required significant compute; shared/limited GPU access increased training time and constrained experimentation with larger models or more extensive hyperparameter tuning.
+- **API limitations for few-shot Ekegusii translation** — the initial LLM-based translation pipeline relied on external APIs, whose usage quotas and rate limits constrained how many translation requests could be made during dataset preparation.
+- **Manual validation by native Ekegusii speakers** — with limited automated evaluation tooling for Ekegusii, translated text required time-consuming manual review to check linguistic accuracy and cultural appropriateness.
+- **Infrastructure and dependency troubleshooting** — GPU provisioning misconfigurations and a chain of PyTorch/CUDA version compatibility issues (detailed in Section 5) required systematic debugging before full-scale training could proceed.
